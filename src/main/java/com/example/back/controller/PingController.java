@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PingController {
     @GetMapping("/jenkins")
     private String jenkins() {
-        return "pong";
+        return "pong!pong~pong?";
     }
 }
