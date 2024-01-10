@@ -25,7 +25,7 @@ public class SendGridClient {
             SendGrid sg = new SendGrid(SENDGRID_API_KEY);
             Request request = new Request();
 
-            Email from = new Email("mongeulproject@gmail.com", "MONG");
+            Email from = new Email("cslabblovi@gmail.com", "MONGEUL");
             Email to = new Email(toEmail);
             Mail mail = new Mail();
             mail.setFrom(from);
