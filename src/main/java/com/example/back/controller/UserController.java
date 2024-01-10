@@ -1,9 +1,11 @@
 package com.example.back.controller;
 
+import com.example.back.dto.LoginDTO;
 import com.example.back.dto.UserDTO;
 import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
 import com.example.back.utils.response.ApiResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -128,6 +130,27 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        UserDTO user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody LoginDTO loginDto, HttpSession session) {
+        LoginDTO user = userService.login(loginDto.getEmail(), loginDto.getPassword());
+        if (user != null) {
+            session.setAttribute("user", user);
+            return "Login successful";
+        }
+        return "Login failed";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "Logged out";
+    }
 
 
 }

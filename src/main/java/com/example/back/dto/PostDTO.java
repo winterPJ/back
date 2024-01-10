@@ -9,7 +9,7 @@ public class PostDTO {
     private int user_id;
     private String title;
     private String body;
-    private int like_cnt;
+    private int comment_cnt;
     private LocalDateTime created_at;
 
     public PostDTO() {

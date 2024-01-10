@@ -16,6 +16,8 @@ public class UserDTO {
     private int state = 0;
     private String profile_img;
 
+    private int comment_cnt = 0;
+
     public UserDTO() {
         this.created_at = Datetime.nowInKst();
         this.profile_img = "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg";

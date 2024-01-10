@@ -1,6 +1,7 @@
 package com.example.back.service;
 
 import com.example.back.configuration.PasswordEncryption;
+import com.example.back.dto.LoginDTO;
 import com.example.back.dto.UserDTO;
 import com.example.back.mapper.UserMapper;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,18 @@ public class UserService {
         String hashedPassword = PasswordEncryption.hashPassword(user.getEmail(), user.getPassword());
         user.setPassword(hashedPassword);
         return mapper.authenticateUser(user);
+    }
+
+    public UserDTO getUserById(Long id) {
+        return mapper.findById(id);
+    }
+
+    public LoginDTO login(String email, String password) {
+        LoginDTO user = mapper.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
     }
 
 }
