@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.back.mapper.EmailAuthMapper">
+    <insert id="saveAuthCode" parameterType="AuthCodeDTO">
+        INSERT INTO email_auth (email, auth_code, created_at)
+        VALUES (#{email}, #{auth_code}, #{created_at})
+    </insert>
+
+    <update id="invalidateExistingCodes" parameterType="string">
+        UPDATE email_auth SET created_at = NOW()
+        WHERE email = #{email} AND created_at > NOW()
+    </update>
+
+    <select id="getAuthCodeInfo" resultType="AuthCodeDTO">
+        SELECT email, auth_code, created_at
+        FROM email_auth
+        WHERE email = #{email} AND created_at > NOW()
+    </select>
+
+    <update id="updateState" parameterType="map">
+        UPDATE user
+        SET state = #{state}
+        WHERE email = #{email}
+    </update>
+
+</mapper>
