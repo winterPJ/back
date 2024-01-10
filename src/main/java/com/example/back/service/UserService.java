@@ -1,7 +1,6 @@
 package com.example.back.service;
 
 import com.example.back.configuration.PasswordEncryption;
-import com.example.back.dto.LoginDTO;
 import com.example.back.dto.UserDTO;
 import com.example.back.mapper.UserMapper;
 import org.springframework.stereotype.Service;
@@ -43,8 +42,8 @@ public class UserService {
         return mapper.findById(id);
     }
 
-    public LoginDTO login(String email, String password) {
-        LoginDTO user = mapper.findByEmail(email);
+    public UserDTO login(String email, String password) {
+        UserDTO user = mapper.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             return user;
         }

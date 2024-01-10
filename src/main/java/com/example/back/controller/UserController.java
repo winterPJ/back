@@ -1,24 +1,28 @@
 package com.example.back.controller;
 
-import com.example.back.dto.LoginDTO;
 import com.example.back.dto.UserDTO;
 import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
 import com.example.back.utils.response.ApiResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.back.configuration.PasswordEncryption;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
+    private final HttpSession httpSession;
+
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, HttpSession httpSession) {
         this.userService = userService;
+        this.httpSession = httpSession;
     }
 
     @PostMapping("/validation/email")
@@ -136,20 +140,46 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+
     @PostMapping("/login")
-    public String login(@RequestBody LoginDTO loginDto, HttpSession session) {
-        LoginDTO user = userService.login(loginDto.getEmail(), loginDto.getPassword());
-        if (user != null) {
-            session.setAttribute("user", user);
-            return "Login successful";
+    public ResponseEntity<ApiResponse> login(@RequestBody UserDTO userDTO) {
+        ApiResponse response = new ApiResponse();
+
+        String hassedPassword =  PasswordEncryption.hashPassword(userDTO.getEmail(), userDTO.getPassword());
+
+        UserDTO user = userService.login(userDTO.getEmail(), hassedPassword);
+        if (user == null) {
+            response.setSuccess(false);
+            response.setData("이메일 또는 비밀번호가 잘못되었습니다.");
+            return ResponseEntity.ok(response);
         }
-        return "Login failed";
+
+        httpSession.setAttribute("user", user);
+        response.setSuccess(true);
+        response.setData("로그인 성공");
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "Logged out";
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse> logout() {
+        httpSession.removeAttribute("user");
+        ApiResponse response = new ApiResponse(true, "로그아웃 성공");
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/check")
+    public ApiResponse checkSession(HttpSession session) {
+        ApiResponse response = new ApiResponse();
+        UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
+
+        if (userDTO != null) {
+            response.setSuccess(true);
+            response.setData(userDTO.getEmail() + "님은 로그인 상태입니다.");
+        } else {
+            response.setSuccess(false);
+            response.setData("로그인 상태가 아닙니다.");
+        }
+        return response;
     }
 
 

@@ -1,10 +1,8 @@
 package com.example.back.mapper;
 
-import com.example.back.dto.LoginDTO;
 import com.example.back.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 
@@ -23,5 +21,8 @@ public interface UserMapper {
     boolean authenticateUser(UserDTO user);
 
     UserDTO findById(Long id);
-    LoginDTO findByEmail(@Param("email") String email);
+
+    UserDTO findByEmail(String email);
 }
+
+

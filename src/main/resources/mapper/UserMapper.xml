@@ -25,12 +25,12 @@
         SELECT COUNT(*) > 0 FROM user WHERE email = #{email} AND password = #{password}
     </select>
 
-    <select id="findByEmail" resultType="com.example.back.dto.LoginDTO">
-        SELECT * FROM user WHERE email = #{email}
-    </select>
-
     <select id="findById" resultType="com.example.back.dto.UserDTO">
         SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <select id="findByEmail" resultType="com.example.back.dto.UserDTO">
+        SELECT * FROM user WHERE email = #{email}
     </select>
 
 </mapper>
