@@ -9,7 +9,7 @@ import java.util.Map;
 @RestController
 public class TestController {
 
-    @CrossOrigin(origins = "http://back.mongjo.xyz")
+
     @GetMapping("/user/daewon")
     public Map<String, String> getUser() {
         Map<String, String> response = new HashMap<>();
