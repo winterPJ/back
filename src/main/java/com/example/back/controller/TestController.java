@@ -1,9 +1,5 @@
 package com.example.back.controller;
 
-<<<<<<< HEAD
-=======
-import org.springframework.web.bind.annotation.CrossOrigin;
->>>>>>> d8638e6a3e5bebbb77aceea82d7585cd14795014
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
