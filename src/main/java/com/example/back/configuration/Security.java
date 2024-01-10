@@ -17,7 +17,7 @@ public class Security {
 
         http.csrf().disable();
         http.authorizeRequests()
-                .requestMatchers("/**").permitAll()
+                
                 .anyRequest().permitAll();
 
         return http.build();
