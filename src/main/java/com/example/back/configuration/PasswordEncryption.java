@@ -1,21 +1,24 @@
 package com.example.back.configuration;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class PasswordEncryption {
-    public static String hashPassword(String email, String password) {
+    public static String hashPassword(String email, String password){
+
+        String toReturn = null;
+        String input = email + password;
+
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            String plainText = email + password;
-            byte[] digest = md.digest(plainText.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : digest) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Failed hashing password", e);
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            digest.reset();
+            digest.update(input.getBytes("utf8"));
+            toReturn = String.format("%0128x", new BigInteger(1, digest.digest()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return toReturn;
     }
+
 }

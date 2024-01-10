@@ -37,5 +37,5 @@ public class UserService {
         user.setPassword(hashedPassword);
         return mapper.authenticateUser(user);
     }
-    
+
 }
