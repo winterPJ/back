@@ -16,7 +16,7 @@ import java.io.IOException;
 import static com.example.back.utils.Validation.isValidEmail;
 
 @RestController
-@RequestMapping("/user/auth")
+@RequestMapping("/auth")
 public class EmailAuthController {
 
     private final EmailAuthService emailAuthService;
