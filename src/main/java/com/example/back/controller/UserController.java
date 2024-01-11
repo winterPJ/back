@@ -173,11 +173,10 @@ public class UserController {
     @GetMapping("/check")
     public ApiResponse checkSession(HttpSession session) {
         ApiResponse response = new ApiResponse();
-        UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
-        if (userDTO != null) {
+        if (session.getAttribute("user") != null) {
             response.setSuccess(true);
-            response.setData(userDTO.getEmail() + "님은 로그인 상태입니다.");
+            response.setData("님은 로그인 상태입니다.");
         } else {
             response.setSuccess(false);
             response.setData("로그인 상태가 아닙니다.");

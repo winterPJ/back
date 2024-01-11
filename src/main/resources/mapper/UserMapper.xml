@@ -36,4 +36,5 @@
 <!--    <select id="getAllUsersPostCount" resultType="com.example.dto.HotUserDTO">-->
 <!--        SELECT nickname, post_cnt FROM user-->
 <!--    </select>-->
+
 </mapper>
