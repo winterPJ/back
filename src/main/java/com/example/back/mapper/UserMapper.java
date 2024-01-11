@@ -2,6 +2,7 @@ package com.example.back.mapper;
 
 //import com.example.back.dto.HotUserDTO;
 import com.example.back.dto.UserDTO;
+import com.example.back.dto.UserPostCountDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -27,7 +28,7 @@ public interface UserMapper {
 
     UserDTO findByEmail(String email);
 
-//    List<HotUserDTO> getAllUsersPostCount();
+    List<UserPostCountDTO> getAllUsersPostCount();
 
 }
 

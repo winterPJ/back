@@ -2,6 +2,7 @@ package com.example.back.controller;
 
 //import com.example.back.dto.HotUserDTO;
 import com.example.back.dto.UserDTO;
+import com.example.back.dto.UserPostCountDTO;
 import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
 import com.example.back.utils.response.ApiResponse;
@@ -158,7 +159,7 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
 
-        session.setAttribute("user", user);
+        session.setAttribute("userEmail", user.getEmail());
         response.setSuccess(true);
         response.setData("로그인 성공");
         return ResponseEntity.ok(response);
@@ -175,9 +176,9 @@ public class UserController {
     public ApiResponse checkSession(HttpSession session) {
         ApiResponse response = new ApiResponse();
 
-        System.out.println(session.getAttribute("user"));
+        System.out.println(session.getAttribute("userEmail"));
 
-        if (session.getAttribute("user") != null) {
+        if (session.getAttribute("userEmail") != null) {
             response.setSuccess(true);
             response.setData("님은 로그인 상태입니다.");
         } else {
@@ -187,10 +188,10 @@ public class UserController {
         return response;
     }
 
-//    @GetMapping("/count/post")
-//    public List<HotUserDTO> getAllUsersPostCount() {
-//        return userService.getAllUsersPostCount();
-//    }
+    @GetMapping("/count/post")
+    public List<UserPostCountDTO> getAllUsersPostCount() {
+        return userService.getAllUsersPostCount();
+    }
 
 }
 

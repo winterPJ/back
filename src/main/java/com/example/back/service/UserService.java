@@ -3,6 +3,7 @@ package com.example.back.service;
 import com.example.back.configuration.PasswordEncryption;
 //import com.example.back.dto.HotUserDTO;
 import com.example.back.dto.UserDTO;
+import com.example.back.dto.UserPostCountDTO;
 import com.example.back.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,7 @@ public class UserService {
         return null;
     }
 
-//    public List<HotUserDTO> getAllUsersPostCount() {
-//        return mapper.getAllUsersPostCount();
-//    }
+    public List<UserPostCountDTO> getAllUsersPostCount() {
+        return mapper.getAllUsersPostCount();
+    }
 }
