@@ -1,5 +1,6 @@
 package com.example.back.mapper;
 
+import com.example.back.dto.CommentDTO;
 import com.example.back.dto.PostDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -11,4 +12,7 @@ import java.util.List;
 public interface PostMapper {
     List<PostDTO> selectPosts(RowBounds rowBounds);
     List<PostDTO> selectPostsByUserId(@Param("userId") int userId, RowBounds rowBounds);
+
+    PostDTO getPostByPostId(Long post_id);
+    List<CommentDTO> getCommentsByPostId(Long post_id);
 }
