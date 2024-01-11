@@ -222,7 +222,7 @@ public class UserController {
     public ResponseEntity<ApiResponse> checkIfAuthor(@RequestBody PostDTO postDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
         ApiResponse response = new ApiResponse();
 
-        if (postDTO.getUser_id() == user.getId()) {
+        if (user != null && postDTO.getUser_id() == user.getId()) {
             response.setSuccess(true);
             response.setData("사용자는 글의 작성자입니다.");
         } else {

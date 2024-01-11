@@ -62,7 +62,7 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("delete/{post_id}")
+    @PostMapping("delete/{post_id}")
     public ResponseEntity<ApiResponse> deletePost(@PathVariable int post_id) {
         boolean success = postService.deletePost(post_id);
         ApiResponse response = new ApiResponse(success, success ? "글 삭제 완료" : "글 삭제 실패");
