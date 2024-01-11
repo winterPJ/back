@@ -30,6 +30,7 @@ public interface UserMapper {
 
     List<UserPostCountDTO> getAllUsersPostCount();
 
+
 }
 
 

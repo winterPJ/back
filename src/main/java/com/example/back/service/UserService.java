@@ -57,4 +57,7 @@ public class UserService {
     public List<UserPostCountDTO> getAllUsersPostCount() {
         return mapper.getAllUsersPostCount();
     }
+
+
+
 }

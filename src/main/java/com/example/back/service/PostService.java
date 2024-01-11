@@ -34,4 +34,15 @@ public class PostService {
     public List<CommentDTO> getCommentsByPostId(Long post_id) {
         return postMapper.getCommentsByPostId(post_id);
     }
+
+
+    @Transactional
+    public boolean createPost(PostDTO postDTO) {
+        if (postMapper.countById(postDTO.getUser_id()) == 0) {
+            return false;
+        }
+
+        return postMapper.insertPost(postDTO) > 0;
+    }
+
 }

@@ -15,4 +15,8 @@ public interface PostMapper {
 
     PostDTO getPostByPostId(int post_id);
     List<CommentDTO> getCommentsByPostId(Long post_id);
+
+    int insertPost(PostDTO postDTO);
+
+    int countById(int userId);
 }

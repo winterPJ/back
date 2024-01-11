@@ -2,8 +2,13 @@ package com.example.back.controller;
 
 import com.example.back.dto.CommentDTO;
 import com.example.back.dto.PostDTO;
+import com.example.back.dto.UserDTO;
 import com.example.back.service.PostService;
+import com.example.back.service.UserService;
+import com.example.back.utils.Validation;
+import com.example.back.utils.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +19,8 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/get")
     public List<PostDTO> getPosts(@RequestParam(defaultValue = "1") int page,
@@ -37,4 +44,13 @@ public class PostController {
     public List<CommentDTO> getCommentsByPostId(@PathVariable Long post_id) {
         return postService.getCommentsByPostId(post_id);
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<ApiResponse> createPost(@RequestBody PostDTO postDTO) {
+        boolean success = postService.createPost(postDTO);
+        ApiResponse response = new ApiResponse(success, success ? "글 작성 완료" : "실패: 존재하지 않는 user_id");
+
+        return ResponseEntity.ok(response);
+    }
+
 }
