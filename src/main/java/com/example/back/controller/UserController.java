@@ -1,5 +1,6 @@
 package com.example.back.controller;
 
+//import com.example.back.dto.HotUserDTO;
 import com.example.back.dto.UserDTO;
 import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
@@ -11,18 +12,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.back.configuration.PasswordEncryption;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
-    private final HttpSession httpSession;
+    //private final HttpSession httpSession;
 
 
     @Autowired
     public UserController(UserService userService, HttpSession httpSession) {
         this.userService = userService;
-        this.httpSession = httpSession;
+        //this.httpSession = httpSession;
     }
 
     @PostMapping("/validation/email")
@@ -142,7 +145,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<ApiResponse> login(@RequestBody UserDTO userDTO, HttpSession session) {
         ApiResponse response = new ApiResponse();
 
         String hassedPassword =  PasswordEncryption.hashPassword(userDTO.getEmail(), userDTO.getPassword());
@@ -154,15 +157,15 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
 
-        httpSession.setAttribute("user", user);
+        session.setAttribute("user", user);
         response.setSuccess(true);
         response.setData("로그인 성공");
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse> logout() {
-        httpSession.removeAttribute("user");
+    public ResponseEntity<ApiResponse> logout(HttpSession session) {
+        session.removeAttribute("user");
         ApiResponse response = new ApiResponse(true, "로그아웃 성공");
         return ResponseEntity.ok(response);
     }
@@ -170,7 +173,7 @@ public class UserController {
     @GetMapping("/check")
     public ApiResponse checkSession(HttpSession session) {
         ApiResponse response = new ApiResponse();
-        UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
+        UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
         if (userDTO != null) {
             response.setSuccess(true);
@@ -182,6 +185,10 @@ public class UserController {
         return response;
     }
 
+//    @GetMapping("/count/post")
+//    public List<HotUserDTO> getAllUsersPostCount() {
+//        return userService.getAllUsersPostCount();
+//    }
 
 }
 
