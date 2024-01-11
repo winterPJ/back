@@ -150,7 +150,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+    public ResponseEntity<ApiResponse> login(@RequestBody UserDTO userDTO, HttpSession session) {
         ApiResponse response = new ApiResponse();
 
         String hassedPassword =  PasswordEncryption.hashPassword(userDTO.getEmail(), userDTO.getPassword());
@@ -162,9 +162,8 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
 
-        HttpSession session = request.getSession();
         session.setAttribute("user", user);
-        
+
         response.setSuccess(true);
         response.setData("로그인 성공");
         return ResponseEntity.ok(response);
@@ -187,26 +186,19 @@ public class UserController {
     }
 
     @GetMapping("/check")
-    public ApiResponse checkSession(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+    public ApiResponse checkSession(@SessionAttribute(name = "user", required = false) UserDTO user, HttpServletRequest request) {
         ApiResponse response = new ApiResponse();
         printAllHeaders(request);
 
-        if (session == null) {
+        if(user == null) {
             response.setSuccess(false);
             response.setData("로그인 상태가 아닙니다.");
-        }
-
-        String userEmail = (String) session.getAttribute("userEmail");
-
-        if (userEmail == null) {
-            response.setSuccess(false);
-            response.setData("로그인 상태가 아닙니다.");
+            return response;
         }
 
         response.setSuccess(true);
         response.setData("로그인 상태입니다.");
-
+        System.out.println(user.getNickname() + "님 환영합니다.");
         return response;
     }
 
