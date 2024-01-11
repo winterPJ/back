@@ -177,12 +177,12 @@ public class UserController {
     }
 
     @GetMapping("/check")
-    public ApiResponse checkSession(HttpSession session, HttpServletRequest request) {
-        request.getSession(false);
+    public ApiResponse checkSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
         ApiResponse response = new ApiResponse();
         printAllHeaders(request);
 
-        if (session.getAttribute("userEmail") != null) {
+        if (session != null) {
             response.setSuccess(true);
             response.setData("님은 로그인 상태입니다.");
         } else {
