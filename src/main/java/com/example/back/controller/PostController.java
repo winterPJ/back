@@ -7,6 +7,7 @@ import com.example.back.service.PostService;
 import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
 import com.example.back.utils.response.ApiResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createPost(@RequestBody PostDTO postDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
-
+        postDTO.setUser_id(user.getId());
         boolean success = postService.createPost(postDTO);
         ApiResponse response = new ApiResponse(success, success ? "글 작성 완료" : "실패: 존재하지 않는 user_id");
 
