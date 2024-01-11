@@ -10,9 +10,9 @@
         SELECT * FROM post WHERE user_id = #{userId} ORDER BY created_at DESC
     </select>
 
-<!--    <select id="getPostByPostId" resultType="com.example.back.dto.PostDTO">-->
-<!--        SELECT * FROM post WHERE id = #{post_id}-->
-<!--    </select>-->
+    <select id="getPostByPostId" resultType="com.example.back.dto.PostDTO">
+        SELECT * FROM post WHERE id = #{post_id}
+    </select>
 
     <select id="getCommentsByPostId" resultType="com.example.back.dto.CommentDTO">
         SELECT * FROM comment WHERE post_id = #{post_id}

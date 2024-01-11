@@ -13,6 +13,6 @@ public interface PostMapper {
     List<PostDTO> selectPosts(RowBounds rowBounds);
     List<PostDTO> selectPostsByUserId(@Param("userId") int userId, RowBounds rowBounds);
 
-//    PostDTO getPostByPostId(Long post_id);
+    PostDTO getPostByPostId(int post_id);
     List<CommentDTO> getCommentsByPostId(Long post_id);
 }
