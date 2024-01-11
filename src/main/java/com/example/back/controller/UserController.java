@@ -197,7 +197,7 @@ public class UserController {
         }
 
         response.setSuccess(true);
-        response.setData("로그인 상태입니다.");
+        response.setData("로그인 상태입니다."+user.getId());
         System.out.println(user.getId() + "님 환영합니다.");
         return response;
     }
