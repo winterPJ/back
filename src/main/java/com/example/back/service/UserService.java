@@ -58,6 +58,12 @@ public class UserService {
         return mapper.getAllUsersPostCount();
     }
 
+    public void changeNickname (String nickname, int id) {
+        mapper.changeNickname(nickname, id);
+    }
 
+    public void changePassword (String password, int id) {
+        mapper.changePassword(password, id);
+    }
 
 }

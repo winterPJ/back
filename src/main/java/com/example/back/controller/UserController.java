@@ -238,5 +238,43 @@ public class UserController {
         UserDTO data = userService.getUserById(user.getId());
         return ResponseEntity.ok(data);
     }
+
+    @PostMapping("changeinfo/nickname")
+    public ResponseEntity<ApiResponse> changeNickname(@RequestBody UserDTO userDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
+        ApiResponse response = new ApiResponse();
+        if (!Validation.isValidNickname(userDTO.getNickname())) {
+            response.setSuccess(false);
+            response.setData("닉네임은 한글이나 영문 또는 숫자 조합으로 3~8자 이어야 합니다.");
+        } else if (userService.isNicknameDuplicated(userDTO.getNickname())) {
+            response.setSuccess(false);
+            response.setData("이미 사용중인 닉네임입니다.");
+        } else {
+            userService.changeNickname(userDTO.getNickname(), user.getId());
+            response.setSuccess(true);
+            response.setData("닉네임 변경이 완료되었습니다.");
+
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("changeinfo/password")
+    public ResponseEntity<ApiResponse> changePassword(@RequestBody UserDTO userDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
+        ApiResponse response = new ApiResponse();
+        String hassedPassword =  PasswordEncryption.hashPassword(user.getEmail(), userDTO.getPassword());
+        if (!Validation.PasswordCheck(userDTO.getPassword(), userDTO.getPasswordConfirm())) {
+            response.setSuccess(false);
+            response.setData("비밀번호가 일치하지 않습니다.");
+        }
+        else if (!Validation.isValidPassword(userDTO.getPassword())) {
+            response.setSuccess(false);
+            response.setData("비밀번호는 영문, 숫자, 특수문자의 조합으로 8자 이상이어야 합니다.");
+        }
+        else {
+            userService.changePassword(hassedPassword, user.getId());
+            response.setSuccess(true);
+            response.setData("비밀번호 변경이 완료되었습니다.");
+        }
+        return ResponseEntity.ok(response);
+    }
 }
 

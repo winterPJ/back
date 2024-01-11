@@ -30,6 +30,9 @@ public interface UserMapper {
 
     List<UserPostCountDTO> getAllUsersPostCount();
 
+    void changeNickname(String nickname, int id);
+
+    void changePassword(String password, int id);
 
 }
 
