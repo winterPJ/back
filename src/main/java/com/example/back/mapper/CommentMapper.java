@@ -10,4 +10,8 @@ public interface CommentMapper {
 
 
     boolean createComment(CommentDTO commentDTO);
+
+    int updateComment(CommentDTO commentDTO);
+
+    int deleteComment(int comment_id);
 }

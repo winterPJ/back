@@ -18,6 +18,13 @@ public class CommentService {
         return mapper.createComment(commentDTO);
     }
 
+    public boolean updateComment(CommentDTO commentDTO) {
+        return mapper.updateComment(commentDTO) > 0;
+    }
+
+    public boolean deleteComment(int comment_id) {
+        return mapper.deleteComment(comment_id) > 0;
+    }
 
 
 }

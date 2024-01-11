@@ -6,4 +6,12 @@
         INSERT INTO comment (id, post_id, user_id, body, created_at)
         VALUES (#{id}, #{post_id}, #{user_id}, #{body}, #{created_at})
     </insert>
+
+    <update id="updateComment" parameterType="com.example.back.dto.CommentDTO">
+        UPDATE comment SET body = #{body} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteComment" parameterType="com.example.back.dto.CommentDTO">
+        DELETE FROM comment WHERE id = #{comment_id}
+    </delete>
 </mapper>

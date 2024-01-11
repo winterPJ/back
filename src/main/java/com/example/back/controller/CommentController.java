@@ -28,4 +28,21 @@ public class CommentController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/update/{comment_id}")
+    public ResponseEntity<ApiResponse> updateComment(@PathVariable int comment_id, @RequestBody CommentDTO commentDTO) {
+        commentDTO.setId(comment_id);
+        boolean success = commentService.updateComment(commentDTO);
+        ApiResponse response = new ApiResponse(success, success ? "댓글 수정 완료" : "댓글 수정 실패");
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/delete/{comment_id}")
+    public ResponseEntity<ApiResponse> deleteComment(@PathVariable int comment_id) {
+        boolean success = commentService.deleteComment(comment_id);
+        ApiResponse response = new ApiResponse(success, success ? "댓글 삭제 완료" : "댓글 삭제 실패");
+
+        return ResponseEntity.ok(response);
+    }
+
 }
