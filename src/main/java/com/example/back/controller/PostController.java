@@ -24,17 +24,14 @@ public class PostController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/get")
-    public List<PostDTO> getPosts(@RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "10") int pageSize) {
-        return postService.getPosts(page, pageSize);
+    @GetMapping("/get/")
+    public List<PostDTO> getPosts() {
+        return postService.getPosts();
     }
 
     @GetMapping("/get/{userId}")
-    public List<PostDTO> getPostsByUserId(@PathVariable int userId,
-                                       @RequestParam(defaultValue = "1") int page,
-                                       @RequestParam(defaultValue = "10") int pageSize) {
-        return postService.getPostsByUserId(userId, page, pageSize);
+    public List<PostDTO> getPostsByUserId(@PathVariable int userId) {
+        return postService.getPostsByUserId(userId);
     }
 
     @GetMapping("/{post_id}")

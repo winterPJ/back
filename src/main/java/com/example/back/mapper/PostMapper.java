@@ -10,8 +10,8 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper {
-    List<PostDTO> selectPosts(RowBounds rowBounds);
-    List<PostDTO> selectPostsByUserId(@Param("userId") int userId, RowBounds rowBounds);
+    List<PostDTO> selectPosts();
+    List<PostDTO> selectPostsByUserId(@Param("userId") int userId);
 
     PostDTO getPostByPostId(int post_id);
     List<CommentDTO> getCommentsByPostId(int post_id);

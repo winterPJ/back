@@ -17,14 +17,12 @@ public class PostService {
     @Autowired
     private PostMapper postMapper;
 
-    public List<PostDTO> getPosts(int page, int pageSize) {
-        int offset = (page - 1) * pageSize;
-        return postMapper.selectPosts(new RowBounds(offset, pageSize));
+    public List<PostDTO> getPosts() {
+        return postMapper.selectPosts();
     }
 
-    public List<PostDTO> getPostsByUserId(int userId, int page, int pageSize) {
-        int offset = (page - 1) * pageSize;
-        return postMapper.selectPostsByUserId(userId, new RowBounds(offset, pageSize));
+    public List<PostDTO> getPostsByUserId(int userId) {
+        return postMapper.selectPostsByUserId(userId);
     }
 
     public PostDTO getPostByPostId(int post_id) {
