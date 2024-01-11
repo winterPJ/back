@@ -1,6 +1,7 @@
 package com.example.back.controller;
 
 //import com.example.back.dto.HotUserDTO;
+import com.example.back.dto.PostDTO;
 import com.example.back.dto.UserDTO;
 import com.example.back.dto.UserPostCountDTO;
 import com.example.back.service.UserService;
@@ -217,6 +218,19 @@ public class UserController {
         }
     }
 
+    @PostMapping("/matching/post")
+    public ResponseEntity<ApiResponse> checkIfAuthor(@RequestBody PostDTO postDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
+        ApiResponse response = new ApiResponse();
 
+        if (postDTO.getId() == user.getId()) {
+            response.setSuccess(true);
+            response.setData("사용자는 글의 작성자입니다.");
+        } else {
+            response.setSuccess(false);
+            response.setData("사용자는 글의 작성자가 아닙니다.");
+        }
+
+        return ResponseEntity.ok(response);
+    }
 }
 

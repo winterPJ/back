@@ -49,13 +49,13 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createPost(@RequestBody PostDTO postDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
-
         postDTO.setUser_id(user.getId());
-        System.out.println("여길보시오 ****" + postDTO.getUser_id());
         boolean success = postService.createPost(postDTO);
         ApiResponse response = new ApiResponse(success, success ? "글 작성 완료" : "실패: 존재하지 않는 user_id");
 
         return ResponseEntity.ok(response);
     }
+
+
 
 }
