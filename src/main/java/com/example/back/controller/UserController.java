@@ -5,6 +5,7 @@ import com.example.back.dto.UserDTO;
 import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
 import com.example.back.utils.response.ApiResponse;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -165,7 +166,7 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse> logout(HttpSession session) {
-        session.removeAttribute("user");
+        session.invalidate();
         ApiResponse response = new ApiResponse(true, "로그아웃 성공");
         return ResponseEntity.ok(response);
     }
