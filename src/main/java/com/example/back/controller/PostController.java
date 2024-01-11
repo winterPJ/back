@@ -28,10 +28,10 @@ public class PostController {
         return postService.getPostsByUserId(userId, page, pageSize);
     }
 
-    @GetMapping("/get/{post_id}")
-    public PostDTO getPostByPostId(@PathVariable Long post_id) {
-        return postService.getPostByPostId(post_id);
-    }
+//    @GetMapping("/get/{post_id}")
+//    public PostDTO getPostByPostId(@PathVariable Long post_id) {
+//        return postService.getPostByPostId(post_id);
+//    }
 
     @GetMapping("/{post_id}/comment")
     public List<CommentDTO> getCommentsByPostId(@PathVariable Long post_id) {

@@ -27,9 +27,9 @@ public class PostService {
         return postMapper.selectPostsByUserId(userId, new RowBounds(offset, pageSize));
     }
 
-    public PostDTO getPostByPostId(Long post_id) {
-        return postMapper.getPostByPostId(post_id);
-    }
+//    public PostDTO getPostByPostId(Long post_id) {
+//        return postMapper.getPostByPostId(post_id);
+//    }
 
     public List<CommentDTO> getCommentsByPostId(Long post_id) {
         return postMapper.getCommentsByPostId(post_id);
