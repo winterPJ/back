@@ -7,6 +7,7 @@ import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
 import com.example.back.utils.response.ApiResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.back.configuration.PasswordEncryption;
 
+import java.util.Enumeration;
 import java.util.List;
 
 @RestController
@@ -161,6 +163,7 @@ public class UserController {
         }
 
         session.setAttribute("userEmail", user.getEmail());
+        session.setAttribute("userId", user.getId());
         response.setSuccess(true);
         response.setData("로그인 성공");
         return ResponseEntity.ok(response);
@@ -174,11 +177,9 @@ public class UserController {
     }
 
     @GetMapping("/check")
-    public ApiResponse checkSession(HttpSession session, HttpRequest request) {
+    public ApiResponse checkSession(HttpSession session, HttpServletRequest request) {
         ApiResponse response = new ApiResponse();
-        System.out.println(request.getHeaders());
-
-        System.out.println(session.getAttribute("userEmail"));
+        printAllHeaders(request);
 
         if (session.getAttribute("userEmail") != null) {
             response.setSuccess(true);
@@ -193,6 +194,16 @@ public class UserController {
     @GetMapping("/count/post")
     public List<UserPostCountDTO> getAllUsersPostCount() {
         return userService.getAllUsersPostCount();
+    }
+
+    public void printAllHeaders(HttpServletRequest request) {
+        Enumeration<String> headerNames = request.getHeaderNames();
+
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            System.out.println(headerName + ": " + headerValue);
+        }
     }
 
 }
