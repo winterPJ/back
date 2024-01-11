@@ -150,7 +150,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(@RequestBody UserDTO userDTO, HttpSession session) {
+    public ResponseEntity<ApiResponse> login(@RequestBody UserDTO userDTO, HttpServletRequest request) {
         ApiResponse response = new ApiResponse();
 
         String hassedPassword =  PasswordEncryption.hashPassword(userDTO.getEmail(), userDTO.getPassword());
@@ -162,17 +162,27 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
 
-        session.setAttribute("userEmail", user.getEmail());
-        session.setAttribute("userId", user.getId());
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
+        
         response.setSuccess(true);
         response.setData("로그인 성공");
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse> logout(HttpSession session) {
-        session.invalidate();
-        ApiResponse response = new ApiResponse(true, "로그아웃 성공");
+    public ResponseEntity<ApiResponse> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        ApiResponse response = new ApiResponse();
+        if(session != null) {
+            session.invalidate();
+            response.setSuccess(true);
+            response.setData("로그아웃 완료");
+        } else {
+            response.setSuccess(false);
+            response.setData("로그인 상태가 아닙니다.");
+        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -182,13 +192,21 @@ public class UserController {
         ApiResponse response = new ApiResponse();
         printAllHeaders(request);
 
-        if (session != null) {
-            response.setSuccess(true);
-            response.setData("님은 로그인 상태입니다.");
-        } else {
+        if (session == null) {
             response.setSuccess(false);
             response.setData("로그인 상태가 아닙니다.");
         }
+
+        String userEmail = (String) session.getAttribute("userEmail");
+
+        if (userEmail == null) {
+            response.setSuccess(false);
+            response.setData("로그인 상태가 아닙니다.");
+        }
+
+        response.setSuccess(true);
+        response.setData("로그인 상태입니다.");
+
         return response;
     }
 
