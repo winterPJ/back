@@ -43,4 +43,12 @@ public class PostService {
         return postMapper.insertPost(postDTO) > 0;
     }
 
+    public boolean updatePost(PostDTO postDTO) {
+        return postMapper.updatePost(postDTO) > 0;
+    }
+
+    public boolean deletePost(int post_id) {
+        return postMapper.deletePost(post_id) > 0;
+    }
+
 }

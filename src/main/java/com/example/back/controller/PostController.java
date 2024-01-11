@@ -24,7 +24,7 @@ public class PostController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/get/")
+    @GetMapping("/get")
     public List<PostDTO> getPosts() {
         return postService.getPosts();
     }
@@ -53,6 +53,22 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("update/{post_id}")
+    public ResponseEntity<ApiResponse> updatePost(@PathVariable int post_id, @RequestBody PostDTO postDTO) {
+        postDTO.setId(post_id);
+        boolean success = postService.updatePost(postDTO);
+        ApiResponse response = new ApiResponse(success, success ? "글 수정 완료" : "글 수정 실패");
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("delete/{post_id}")
+    public ResponseEntity<ApiResponse> deletePost(@PathVariable int post_id) {
+        boolean success = postService.deletePost(post_id);
+        ApiResponse response = new ApiResponse(success, success ? "글 삭제 완료" : "글 삭제 실패");
+
+        return ResponseEntity.ok(response);
+    }
 
 
 }

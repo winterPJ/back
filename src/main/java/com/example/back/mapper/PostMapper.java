@@ -20,4 +20,8 @@ public interface PostMapper {
 
     int countById(int userId);
 
+    int updatePost(PostDTO postDTO);
+
+    int deletePost(int post_id);
+
 }
