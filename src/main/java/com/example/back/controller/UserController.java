@@ -178,6 +178,7 @@ public class UserController {
 
     @GetMapping("/check")
     public ApiResponse checkSession(HttpSession session, HttpServletRequest request) {
+        request.getSession(false);
         ApiResponse response = new ApiResponse();
         printAllHeaders(request);
 
