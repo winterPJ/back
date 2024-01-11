@@ -9,6 +9,7 @@ import com.example.back.utils.response.ApiResponse;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -173,8 +174,9 @@ public class UserController {
     }
 
     @GetMapping("/check")
-    public ApiResponse checkSession(HttpSession session) {
+    public ApiResponse checkSession(HttpSession session, HttpRequest request) {
         ApiResponse response = new ApiResponse();
+        System.out.println(request.getHeaders());
 
         System.out.println(session.getAttribute("userEmail"));
 
