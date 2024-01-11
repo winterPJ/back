@@ -31,7 +31,7 @@ public class PostService {
         return postMapper.getPostByPostId(post_id);
     }
 
-    public List<CommentDTO> getCommentsByPostId(Long post_id) {
+    public List<CommentDTO> getCommentsByPostId(int post_id) {
         return postMapper.getCommentsByPostId(post_id);
     }
 

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class CommentDTO {
 
-    private Long id;
+    private int id;
 
     private int post_id;
 

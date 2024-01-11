@@ -42,7 +42,7 @@ public class UserService {
         return mapper.authenticateUser(user);
     }
 
-    public UserDTO getUserById(Long id) {
+    public UserDTO getUserById(int id) {
         return mapper.findById(id);
     }
 

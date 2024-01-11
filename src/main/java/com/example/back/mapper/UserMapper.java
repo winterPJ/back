@@ -24,7 +24,7 @@ public interface UserMapper {
 
     boolean authenticateUser(UserDTO user);
 
-    UserDTO findById(Long id);
+    UserDTO findById(int id);
 
     UserDTO findByEmail(String email);
 

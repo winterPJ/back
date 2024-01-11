@@ -143,7 +143,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable int id) {
         UserDTO user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
@@ -198,7 +198,7 @@ public class UserController {
 
         response.setSuccess(true);
         response.setData("로그인 상태입니다.");
-        System.out.println(user.getNickname() + "님 환영합니다.");
+        System.out.println(user.getId() + "님 환영합니다.");
         return response;
     }
 
@@ -216,6 +216,7 @@ public class UserController {
             System.out.println(headerName + ": " + headerValue);
         }
     }
+
 
 }
 

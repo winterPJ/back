@@ -41,12 +41,13 @@ public class PostController {
     }
 
     @GetMapping("/{post_id}/comment")
-    public List<CommentDTO> getCommentsByPostId(@PathVariable Long post_id) {
+    public List<CommentDTO> getCommentsByPostId(@PathVariable int post_id) {
         return postService.getCommentsByPostId(post_id);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createPost(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<ApiResponse> createPost(@RequestBody PostDTO postDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
+
         boolean success = postService.createPost(postDTO);
         ApiResponse response = new ApiResponse(success, success ? "글 작성 완료" : "실패: 존재하지 않는 user_id");
 
