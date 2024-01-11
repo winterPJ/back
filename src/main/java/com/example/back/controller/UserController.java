@@ -175,6 +175,8 @@ public class UserController {
     public ApiResponse checkSession(HttpSession session) {
         ApiResponse response = new ApiResponse();
 
+        System.out.println(session.getAttribute("user"));
+
         if (session.getAttribute("user") != null) {
             response.setSuccess(true);
             response.setData("님은 로그인 상태입니다.");
