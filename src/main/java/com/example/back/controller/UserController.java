@@ -232,5 +232,11 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/get/info")
+    public ResponseEntity<UserDTO> getUserById(@SessionAttribute(name = "user", required = false) UserDTO user){
+        UserDTO data = userService.getUserById(user.getId());
+        return ResponseEntity.ok(data);
+    }
 }
 
