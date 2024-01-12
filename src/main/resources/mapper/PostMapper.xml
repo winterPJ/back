@@ -15,7 +15,7 @@
     </select>
 
     <select id="getCommentsByPostId" resultType="com.example.back.dto.CommentDTO">
-        SELECT * FROM comment WHERE post_id = #{post_id}
+        SELECT user_id FROM comment WHERE post_id = #{post_id}
     </select>
 
     <insert id="insertPost" parameterType="com.example.back.dto.PostDTO">

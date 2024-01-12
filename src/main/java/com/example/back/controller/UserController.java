@@ -221,6 +221,7 @@ public class UserController {
     @PostMapping("/matching/post")
     public ResponseEntity<ApiResponse> checkIfAuthor(@RequestBody PostDTO postDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
         ApiResponse response = new ApiResponse();
+        System.out.println(postDTO.toString());
 
         if (user != null && postDTO.getUser_id() == user.getId()) {
             response.setSuccess(true);
