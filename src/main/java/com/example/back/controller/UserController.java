@@ -4,6 +4,7 @@ package com.example.back.controller;
 import com.example.back.dto.PostDTO;
 import com.example.back.dto.UserDTO;
 import com.example.back.dto.UserPostCountDTO;
+import com.example.back.service.PostService;
 import com.example.back.service.UserService;
 import com.example.back.utils.Validation;
 import com.example.back.utils.response.ApiResponse;
@@ -25,12 +26,14 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final PostService postService;
     //private final HttpSession httpSession;
 
 
     @Autowired
-    public UserController(UserService userService, HttpSession httpSession) {
+    public UserController(UserService userService, HttpSession httpSession, PostService postService) {
         this.userService = userService;
+        this.postService = postService;
         //this.httpSession = httpSession;
     }
 
@@ -221,9 +224,8 @@ public class UserController {
     @PostMapping("/matching/post")
     public ResponseEntity<ApiResponse> checkIfAuthor(@RequestBody PostDTO postDTO, @SessionAttribute(name = "user", required = false) UserDTO user) {
         ApiResponse response = new ApiResponse();
-        System.out.println(postDTO.toString());
 
-        if (user != null && postDTO.getUser_id() == user.getId()) {
+        if (user != null && postService.getPostByPostId(postDTO.getId()).getUser_id() == user.getId()) {
             response.setSuccess(true);
             response.setData("사용자는 글의 작성자입니다.");
         } else {
