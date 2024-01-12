@@ -34,7 +34,7 @@
     </select>
 
     <select id="getAllUsersPostCount" resultType="com.example.back.dto.UserPostCountDTO">
-        SELECT nickname, post_cnt FROM user
+        SELECT nickname, post_cnt FROM user ORDER BY post_cnt DESC
     </select>
 
     <update id="changeNickname" parameterType="com.example.back.dto.UserDTO">
